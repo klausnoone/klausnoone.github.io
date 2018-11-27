@@ -1,28 +1,138 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>h5爱心鱼游戏</title>
-  <meta charset= "utf-8"/>
-<link href="styles.css" rel="stylesheet"></head>
+	<title>朱锦涛的主页</title>
+	<meta charset="utf-8"> 
+</head>
 <body>
-	<div class="introduce">
-		<p class="title">游戏规则：</p>
-		<ul>
-			<li>1. 大鱼跟着鼠标的位置移动而吃到果实，如吃到红色果实，身体变红，画布下方的个数加1；如吃到蓝色果实，身体变蓝，画布下方的倍数加1。</li>
-			<li>2. 画布右上角显示着小鱼的体力值，初始为10，身体为红色，随着时间的推移，体力值减小，身体颜色变淡。</li>
-			<li>3. 大鱼吃到果实之后可以喂小鱼，此时小鱼的体力值会根据大鱼果实的数量相应增加，画布上方的分值等于画布下方的倍数乘以个数的累加和。</li>
-			<li>4. 当小鱼体力值减到0时，游戏结束；点击画布，则可重新开始游戏。好了，拯救小鱼行动开始，躁起来吧！</li>
-		</ul>
+	<input 
+		type = "button"
+		class = "dropDownMenu"
+		value = "下拉菜单"
+		data-menu = '[
+			{
+				innerHTML:"next-p6  --  一个你不会玩的游戏",
+				href:"./next-p6"
+			},
+			{
+				innerHTML:"阿里服务器  --  超级慢的",
+				href:"https://www.weby.xin"
+			},
+			{
+				innerHTML:"Gitlab Pages  --  瞎几把乱搞的",
+				href:"https://oboy.gitlab.io"
+			}
+		]'
+	>
+	<div style="height: 1000px; background-color: #f0f0f0">
+		<p>下面啥都没了，不用看了</p>
+		<p>你傻的话，可以考虑给你做个广告</p>
+		<p>联系我：894507488@qq.com 看心情回你</p>
 	</div>
-	<div class="page">
-		<div class="content" id="main">
-			<canvas id="canvas1" width="800" height="600">
 
-			</canvas>
-			<canvas id="canvas2" width="800" height="600">
+	<script type="text/javascript">
+		var dropDownMenu = document.getElementsByClassName("dropDownMenu")
+		if ( dropDownMenu.length > 0){
+			for( d in dropDownMenu ){
+				if ( dropDownMenu[d].nodeType ==1 ){
+					//已找到后
+					var obj = dropDownMenu[d]
+					var objData = eval( obj.getAttribute("data-menu") )
+					obj.style.cssText = "padding: 5px 10px;" + 
+										"border: 1px solid #4d4de1;" +
+										"background-color: #5f5fe8;" +
+										"color: #fff;" +
+										"height: 30px;" +
+										"cursor: pointer;"+
+										"width: 100%;"
 
-			</canvas>
-		</div>
-	</div>
-<script type="text/javascript" src="bundle.js"></script></body>
+					var menu = document.createElement("ul")
+					menu.class = "menuShow"
+					//li数据添加
+					for( i in objData){
+						var menuLi = document.createElement("li")
+						var menuLiA = document.createElement("a")
+						menuLiA.innerHTML = objData[i].innerHTML
+						menuLiA.href = objData[i].href
+						menuLi.insertBefore(menuLiA,menuLi.childNodes[0])
+						menu.insertBefore(menuLi,menu.childNodes[0])
+					}
+					document.body.appendChild( menu )
+					//css处理下拉菜单
+					var ulWidth = parseInt( window.getComputedStyle(obj).width)
+
+					var ulTop = parseInt( obj.offsetTop + 30)
+					console.log(ulTop)
+					menu.style.cssText = "background-color: #7171f0;" + 
+										 "position: absolute;" + 
+										 "top: " + ulTop + "px;" +
+										 "left: " + obj.offsetLeft +"px;" +
+										 "width: " + ulWidth + "px;" + 
+										 "display: none;"
+					menu.className = "dropDownMenu-ul"
+					obj.addEventListener(
+						"mouseenter",
+						function(event){
+							if(window.getComputedStyle(menu).display == "none"){
+								menu.style.display = "block"
+							}
+						},
+						false
+					)
+					menu.addEventListener(
+						"mouseleave",
+						function(event){
+							if(window.getComputedStyle(menu).display == "block"){
+								menu.style.display = "none"
+							}
+						},
+						false
+					)
+					obj.addEventListener(
+						"mouseleave",
+						function(event){
+							var divX1 = menu.offsetLeft
+							var divX2 = menu.offsetLeft +menu.offsetWidth
+							var divY1 = menu.offsetTop
+							var divY2 = menu.offsetTop + menu.offsetHeight
+							var mX = event.clientX
+							var mY = event.clientY + 10
+							if ( mX < divX1 || mX > divX2 || mY < divY1 )
+							{
+								menu.style.display = "none"
+							}
+						},
+						false
+					)
+
+
+				}
+			}
+		}
+	</script>
+	<style type="text/css">
+		ul,li{
+			margin: 0;
+			padding: 0;
+		}
+		li{
+			list-style-type: none;
+		}
+		.dropDownMenu-ul{
+			padding: 5px 0;
+		}
+		.dropDownMenu-ul li{
+			text-align: center;
+			height: 25px;
+			line-height: 25px;
+		}
+		.dropDownMenu-ul li a:link,.dropDownMenu-ul li a:visited{
+			color: #fff;
+			text-decoration: none;
+		}
+		.dropDownMenu-ul li a:hover{
+			background-color: #7e7e7d;
+		}
+	</style>
+</body>
 </html>
